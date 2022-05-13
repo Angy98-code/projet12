@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { useFetch } from "../../utils/hooks";
 //import { renderMatches } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-import {  ThemeContext } from "../../utils/context";
+import { ThemeContext } from "../../utils/context";
 //import mocks from '../data/mocks.json'
 import dataMock from "../../data/mocks.json";
 
@@ -43,22 +43,36 @@ function Welcome() {
   } = useFetch(theme === "mock" ? "" : `http://localhost:3000/user/${userId}`);
 
   // //MOCK
-
-  //console.log('theme === "mock"', theme === "mock");
+  // console.log("error", error);
+  // console.log("isLoading", isLoading);
+  //   console.log('theme === "mock"', theme === "mock");
+  //   console.log("data", dataApi?.data);
 
   if (theme === "mock") {
     userData = dataMock.data.userInfos.firstName;
-   // console.log("?????", userData);
+    // console.log("?????", userData);
   } else {
     userData = dataApi?.data?.userInfos?.firstName;
   }
-//fonctionne pas
+  //console.log("dataApi", dataApi?.data?.id);
+  //fonctionne pas
   //console.log({isLoading, error, data});
-  if ((!isLoading && error) || userData === "can not get user") {
+  if (!isLoading && error) {
     return <Navigate to="/404" replace />;
   }
 
+  // console.log("wwwwww", userId);
+  if (userId !== "18" && userId !== "12") {
+    return <Navigate to="/404" replace />;
+  }
+  //console.log("userId", userId, userData);
+
+  // ok avant
+  // if ((!isLoading && error) || dataApi === "can not get user") {
+  //   return <Navigate to="/404" replace />;
+  // }
   //
+
   //console.log("!!!!",theme, toggleTheme, setTheme);
   //if (theme === "mock") { const user = data mock}
   //console.log(dataMock);
