@@ -1,3 +1,10 @@
+/* html, body, #root, .App {
+  height: 100%;
+} */
+.aside {
+  height: 100%;
+}
+
 /* //welcome */
 .colorwelcome {
   color: red;
@@ -51,8 +58,10 @@
 .linecontainer {
   background-color: #FF0000; 
   border-radius : 5px;
+  z-index:-1;
  
 }
+
 
 .titleline {
   position: absolute;

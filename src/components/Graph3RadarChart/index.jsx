@@ -4,33 +4,36 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } fro
 import  "../../styles/style.css"
 import { useParams } from 'react-router-dom';
 import { useFetch } from '../../utils/hooks';
-console.log("hello");
-const data= [
-            {
-                value: 80,
-                kind: 1
-            },
-            {
-                value: 120,
-                kind: 2
-            },
-            {
-                value: 140,
-                kind: 3
-            },
-            {
-                value: 50,
-                kind: 4
-            },
-            {
-                value: 200,
-                kind: 5
-            },
-            {
-                value: 90,
-                kind: 6
-            }
-        ];
+import dataMock from "../../data/mocks.json";
+import { useContext } from "react";
+import { ThemeContext } from "../../utils/context";
+
+// const data= [
+//             {
+//                 value: 80,
+//                 kind: 1
+//             },
+//             {
+//                 value: 120,
+//                 kind: 2
+//             },
+//             {
+//                 value: 140,
+//                 kind: 3
+//             },
+//             {
+//                 value: 50,
+//                 kind: 4
+//             },
+//             {
+//                 value: 200,
+//                 kind: 5
+//             },
+//             {
+//                 value: 90,
+//                 kind: 6
+//             }
+//         ];
    
 
 const RadarDivStyled = styled.div`
@@ -39,54 +42,114 @@ const RadarDivStyled = styled.div`
 `
 
 function Functionradar () {
-//fetch
-  const { id: userId } = useParams()
-  const { data, error } = useFetch(`http://localhost:3000/user/${userId}/performance`);
-  const user = data?.data;
-console.log("user",user);
 
-const kindData = user?.kind;
+  const { theme } = useContext(ThemeContext);
+  let userData;
+  let mockApiData;
+  //API
+  const { id: userId } = useParams();
+  const { data: dataApi } = useFetch(
+    theme === "mock" ? "" : `http://localhost:3000/user/${userId}/performance`
+  );
 
- console.log("kindData array ?",kindData);
- //console.log("alors ????",Object.values(kindData));
+  // //MOCK
+
+ // console.log('theme === "mock"', theme === "mock");
+
+  if (theme === "mock") {
+    userData = dataMock.data.performance.data.kind;
+    mockApiData = dataMock.data.performance.data.data;
+   // console.log("1?????", userData, mockApiData);
+  } else {
+    userData = dataApi?.data?.kind;
+    mockApiData = dataApi?.data?.data;
+   // console.log("2?????", userData, mockApiData);
+  }
+
+  // // // //fetch
+//   const { id: userId } = useParams()
+//   const { data, error } = useFetch(`http://localhost:3000/user/${userId}/performance`);
+ 
+ 
+//  console.log("1", data);
+//  console.log("2", data?.data);
+//   console.log("data api",data?.data);
+//   const data1 = data?.data?.data;
+//   console.log("data",data1?.value);
+//   const user = data?.data;
+// console.log("user",user);
+
+// const kindData = user?.kind;
+
+// //  console.log("kindData array ?",kindData);
+//  console.log("alors ????", Object.values(kindData));
 
 
-  if (error) {
-    return <span>Il y a un problème</span>
-  } 
+//   if (error) {
+//     return <span>Il y a un problème</span>
+//   } 
 
 
+//const data = 
 
+function upperCaseFirst(a){return (a).charAt(0).toUpperCase()+a.substr(1);}
 
-
+upperCaseFirst('test');
+// renvoie : "Test"
+// console.log("upperCaseFirst",upperCaseFirst("test"));
 
 
 
 const PerformanceKind = (tickItem) => {
-  const Kind = [
-    'Cardio',
-    'Energie',
-    'Endurance',
-    'Force',
-    'Vitesse',
-    'Intensité',
-  ];
-  console.log("Kind", Kind);
-  if (tickItem) return Kind[tickItem - 1];
+  
+  // const Kind = [
+  //   'Cardio',
+  //   'Energie',
+  //   'Endurance',
+  //   'Force',
+  //   'Vitesse',
+  //   'Intensité',
+  // ];
+  //console.log("Kind ", data?.data?.kind && Object.keys(data?.data?.kind));
+  const kindArray = userData && Object.keys(userData).map((key) => {
+   return upperCaseFirst(userData[key])
+  }
+  )
+
+  if (kindArray && tickItem) return kindArray[tickItem - 1];
 };
+
+//console.log("data avant return", data);
     return (
-        <RadarDivStyled>
-      <ResponsiveContainer width="100%" height={263} className="radarcontainer">
-        <RadarChart cx="48,5%" cy="50%" outerRadius="64%" data={data}>
-          <PolarGrid radialLines={false}/>
-          <PolarAngleAxis dataKey="kind" tick={{ fill: '#ffffff', fontSize: 12}} stroke="#FFffff
-" dx={0} tickLine={false} dy={4} 
-            tickFormatter={PerformanceKind}/>
-          <Radar name="Mike" dataKey="value" stroke="#FF0101
-" fill="#FF0101
-" fillOpacity={0.6} />
-        </RadarChart>
-      </ResponsiveContainer>
+      <RadarDivStyled>
+        <ResponsiveContainer
+          width="100%"
+          height={263}
+          className="radarcontainer"
+        >
+          <RadarChart cx="48,5%" cy="50%" outerRadius="64%" data={mockApiData}>
+            <PolarGrid radialLines={false} />
+            <PolarAngleAxis
+              dataKey="kind"
+              tick={{ fill: "#ffffff", fontSize: 12 }}
+              stroke="#FFffff
+"
+              dx={0}
+              tickLine={false}
+              dy={4}
+              tickFormatter={PerformanceKind}
+            />
+            <Radar
+              name="Mike"
+              dataKey="value"
+              stroke="#FF0101
+"
+              fill="#FF0101
+"
+              fillOpacity={0.6}
+            />
+          </RadarChart>
+        </ResponsiveContainer>
       </RadarDivStyled>
     );
   }

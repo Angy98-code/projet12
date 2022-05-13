@@ -8,11 +8,10 @@ const AsideContainerStyled = styled.div`
 position: absolute;
 display: flex;
 flex-direction: column;
-justify-content : center;
+justify-content : space-around;
 align-items: center;
-padding-bottom : 480px;
-// padding-bottom : 400px;  wip
 width: 91px;
+height : 970px;
 color: white;
 background-color: #020203;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -29,16 +28,18 @@ border-radius : 3px;
 const DivImageStyled = styled.div`
 display:flex;
 flex-direction : column;
-margin-top: 380px;
+padding-top:50px;
+`
+const DivCopiryghtStyled = styled.div`
+display:flex;
+flex-direction : column;
 `
 const CopiryghtTextStyled = styled.span`
 transform : rotate(270deg);
 font-size: 12px;
-bottom: -270px;
+width : 150px;
 color: white;
 left: -22px;
-position: absolute;
-
 `
 
 function asideContainer () {
@@ -52,9 +53,10 @@ function asideContainer () {
             <ImageGroupsStyled src={Group3} alt=""/>
             <ImageGroupsStyled src={Group4} alt=""/>
         </DivImageStyled>
-        </AsideContainerStyled>       
+         <DivCopiryghtStyled> 
   <CopiryghtTextStyled>Copiryght. SportSee 2020</CopiryghtTextStyled>
-  
+  </DivCopiryghtStyled>   
+  </AsideContainerStyled>  
 
 
         </div>

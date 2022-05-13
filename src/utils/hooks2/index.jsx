@@ -1,8 +1,7 @@
 //copie ok
 
 
-import { useState, useEffect, useContext } from 'react'
-import { ThemeContext } from 'styled-components'
+import { useState, useEffect } from 'react'
 
  
 
@@ -87,14 +86,6 @@ export function useFetch(url) {
     fetchData()
   }, [url])
  // console.log("url est bien transmit ? :",url);
- 
  return { isLoading, data, error}
 
 }
-//useTheme
-
-export function useTheme() {
-  const { theme, toggleTheme } = useContext(ThemeContext)
-  return { theme, toggleTheme }
-}
-

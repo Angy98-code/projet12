@@ -1,26 +1,31 @@
 import './App.css';
 import Home from './page/Home';
-import User from './page/User';
+import User from './components/User';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { Routes, Route } from 'react-router-dom'
 import Error from "./page/Error"
+import { ThemeProvider } from './utils/context';
+//import { MockProvider } from '../src/utils/context';
 
 function App () {
 
 return(
 <div>
+     {/* //<MockProvider> */}
+     <ThemeProvider>
     <GlobalStyle/>
 
    
  <Routes>
-      <Route path="/user/:id" element={<User />} />
+     <Route exact path="*" element={<Error />} />
+      <Route exact path="/user/:id" element={<User />} />
       <Route path="/" element={<Home/>} />
-        
-          <Route path="*" element={<Error />} />  
+ 
            
       </Routes>  
 
-
+{/* </MockProvider> */}
+</ThemeProvider>
 </div>
 )
 
