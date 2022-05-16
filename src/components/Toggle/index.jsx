@@ -1,43 +1,51 @@
-import { useContext } from 'react'
+/** @format */
+
+import { useContext } from "react";
 //import colors from '../../utils/style/colors'
 
-import { ThemeContext } from '../../utils/context'
-import styled from 'styled-components'
+import { ThemeContext } from "../../utils/context";
+import styled from "styled-components";
 //import colors from '../../utils/style/colors'
 
- 
 const ToggleContainer = styled.footer`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding-top: 60px;
-`
- 
-const NightModeButton = styled.button`
-    width : 100px;
-    border-radius: 15px;
-    height : 60px;
-    border : none;
-    background: pink;
-    cursor: pointer;
-`
- 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: 60px;
+`;
+
+const ModeButton = styled.button`
+  width: 100px;
+  border-radius: 15px;
+  height: 60px;
+  border: none;
+  background: pink;
+  cursor: pointer;
+`;
+const DivTitle = styled.div`
+  padding-right: 25px;
+`;
+
 function Toggle() {
-  const { toggleTheme, theme } = useContext(ThemeContext)
+  const { toggleTheme, theme } = useContext(ThemeContext);
   console.log(theme);
 
-    return (
-        <ToggleContainer> <h5>Datas en Api ou Mock : </h5>
-            {/* <NightModeButton>MOCK</NightModeButton> */}
-            <NightModeButton onClick={() => toggleTheme()}>
-            {theme === 'mock' ? 'MOCK' : 'API'}
-            </NightModeButton>
-        </ToggleContainer>
-    )
+  return (
+    <ToggleContainer>
+      {" "}
+      <DivTitle>
+        <h5>Data Api ou Mock, à vous de choisir : </h5>
+      </DivTitle>
+      {/* <NightModeButton>MOCK</NightModeButton> */}
+      <ModeButton onClick={() => toggleTheme()}>
+        {theme === "mock" ? "MOCK" : "API"}
+      </ModeButton>
+    </ToggleContainer>
+  );
 }
- 
-export default Toggle
+
+export default Toggle;
 
 //
 // const ToggleButtonOnOff = () => {
@@ -48,9 +56,6 @@ export default Toggle
 //   );
 // }
 //
-
-
-
 
 // import styled from "styled-components"
 

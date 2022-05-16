@@ -34,6 +34,7 @@ const DivNameStyled = styled.div`
 function Welcome() {
   const { theme } = useContext(ThemeContext);
   let userData;
+  //let userDataMockId;
   //API
   const { id: userId } = useParams();
   const {
@@ -50,10 +51,17 @@ function Welcome() {
 
   if (theme === "mock") {
     userData = dataMock.data.userInfos.firstName;
+    // userDataMockId = dataMock.data.id;
     // console.log("?????", userData);
   } else {
     userData = dataApi?.data?.userInfos?.firstName;
+    //  userDataMockId = dataApi?.data?.id;
   }
+  //  console.log("userId", userId);
+  //  if (userDataMockId === userId) {
+  //    console.log("pas de message d'erreur");
+  //  }
+  //   console.log("und ? : ", userDataMockId);
   //console.log("dataApi", dataApi?.data?.id);
   //fonctionne pas
   //console.log({isLoading, error, data});
